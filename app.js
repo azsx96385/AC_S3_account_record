@@ -53,3 +53,5 @@ app.use(methodOverride("_method"));
 app.use(flash());
 
 //3.route
+//record 路由
+app.use("/records", require("./routes/records"));
