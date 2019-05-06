@@ -54,5 +54,5 @@ app.use(flash());
 //3.route
 //record 路由
 app.use(express.static("public"));
-
+app.use("/user", require("./routes/user"));
 app.use("/records", require("./routes/records"));
