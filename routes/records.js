@@ -5,10 +5,14 @@ const recordModel = require("../models/record");
 //路由區
 
 //1.檢視
-router.get("/", (req, res) => {});
+router.get("/", (req, res) => {
+  res.render("index");
+});
 
 //2.新增
-router.get("/create", (req, res) => {});
+router.get("/create", (req, res) => {
+  res.render("create");
+});
 router.post("/create", (req, res) => {});
 
 //3.修改

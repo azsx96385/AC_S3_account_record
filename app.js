@@ -4,11 +4,10 @@ const session = require("express-session");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const passport = require("passport");
-
-const mongoose = require("mongoose");
 const bdParser = require("body-parser");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
+const path = require("path");
 
 //2.設定 package
 
@@ -54,4 +53,6 @@ app.use(flash());
 
 //3.route
 //record 路由
+app.use(express.static("public"));
+
 app.use("/records", require("./routes/records"));
