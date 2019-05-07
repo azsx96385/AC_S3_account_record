@@ -6,7 +6,18 @@ const recordModel = require("../models/record");
 
 //1.檢視
 router.get("/", (req, res) => {
-  res.render("index");
+  recordModel.find().exec((err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    //total result 計算
+    let totalAmount = 0;
+    data.forEach(item => {
+      totalAmount += item.amount;
+    });
+    console.log(totalAmount);
+    res.render("index", { userRecords: data, totalAmount });
+  });
 });
 
 //2.新增

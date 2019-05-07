@@ -36,35 +36,35 @@ db.once("open", () => {
       {
         userId: userId,
         name: "午餐",
-        category: "餐飲食品",
+        category: "fa-utensils",
         date: "2019/05/01",
         amount: 60
       },
       {
         userId: userId,
         name: "衛生紙",
-        category: "家居物業",
+        category: "fa-home",
         date: "2019/04/20",
         amount: 100
       },
       {
         userId: userId,
         name: "加油",
-        category: "交通出行",
+        category: "fa-shuttle-van",
         date: "2019/04/25",
         amount: 200
       },
       {
         userId: userId,
         name: "電影:復仇者4",
-        category: "休閒娛樂",
-        date: "2019/04/028",
+        category: "fa-grin-beam",
+        date: "2019/04/28",
         amount: 460
       },
       {
         userId: userId,
         name: "信用卡費",
-        category: "其他",
+        category: "fa-pen",
         date: "2019/04/20",
         amount: 6000
       }

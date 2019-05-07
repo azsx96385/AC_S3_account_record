@@ -25,10 +25,10 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 //mongoose
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://127.0.0.1/accountrecord",
-  { useNewUrlParser: true, useCreateIndex: true }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1/records", {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
 const db = mongoose.connection;
 db.on("error", () => {
   console.log("mongodb error");
