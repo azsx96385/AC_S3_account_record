@@ -40,7 +40,7 @@ db.once("open", () => {
 //passport
 app.use(passport.initialize());
 app.use(passport.session());
-//require('')
+require("./config/passport")(passport);
 
 //body-parser
 app.use(bdParser.urlencoded({ extended: true }));
@@ -50,6 +50,13 @@ app.use(methodOverride("_method"));
 
 //connect-flash
 app.use(flash());
+
+//自設中介曾
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  console.log("req.user", req.user);
+  next();
+});
 
 //3.route
 //record 路由

@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
     data.forEach(item => {
       totalAmount += item.amount;
     });
-    console.log(totalAmount);
+
     res.render("index", { userRecords: data, totalAmount });
   });
 });
