@@ -6,7 +6,7 @@ const recordModel = require("../models/record");
 
 //1.檢視
 router.get("/", (req, res) => {
-  recordModel.find().exec((err, data) => {
+  recordModel.find({ userId: req.user._id }).exec((err, data) => {
     if (err) {
       console.log(err);
     }
@@ -24,14 +24,57 @@ router.get("/", (req, res) => {
 router.get("/create", (req, res) => {
   res.render("create");
 });
-router.post("/create", (req, res) => {});
+router.post("/create", (req, res) => {
+  const { userId, name, date, category, amount } = req.body;
+  let recorddata = new recordModel({ userId, name, date, category, amount });
+  recorddata.save().catch(err => {
+    console.log(err);
+  });
+  res.redirect("/records");
+});
 
 //3.修改
-router.get("/edit", (req, res) => {});
-router.put("/edit", (req, res) => {});
+router.get("/edit/:id", (req, res) => {
+  let id = req.params.id;
+  recordModel.findOne({ _id: id }).then(data => {
+    let [home, traffic, fun, food, other] = ["", "", "", "", ""];
+    if (data.category == "fa-home") {
+      home += true;
+    } else if (data.category == "fa-shuttle-van") {
+      traffic += true;
+    } else if (data.category == "fa-grin-beam") {
+      fun += true;
+    } else if (data.category == "fa-utensils") {
+      food += true;
+    } else if (data.category == "fa-pen") {
+      other += true;
+    }
+    res.render("edit", { data, home, traffic, fun, food, other });
+  });
+});
+router.post("/edit/:id", (req, res) => {
+  recordModel
+    .findOne({ _id: req.params.id, userId: req.user._id })
+    .then(data => {
+      let { _id, userId, name, category, date, amount } = req.body;
+      data.name = name;
+      data.category = category;
+      data.date = date;
+      data.amount = amount;
+      data.save().catch(err => console.log(err));
+      res.redirect("/records");
+    });
+});
 
 //4.刪除
-router.get("/delete", (req, res) => {});
+router.get("/delete/:id", (req, res) => {
+  recordModel
+    .findOne({ _id: req.params.id, userId: req.user._id })
+    .then(data => {
+      data.remove();
+      res.redirect("/records");
+    });
+});
 
 //匯出路由
 module.exports = router;

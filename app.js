@@ -18,7 +18,15 @@ app.listen(process.env.PORT || 3000, () => {
 });
 
 //express-session
-app.use(session({ secret: "okok" }));
+app.use(
+  session({
+    secret: "okokokok",
+    resave: "false",
+    saveUninitialized: "false",
+    name: "userid",
+    cookie: { maxAge: 1800000 }
+  })
+);
 
 //express-handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
@@ -54,7 +62,7 @@ app.use(flash());
 //自設中介曾
 app.use((req, res, next) => {
   res.locals.user = req.user;
-  console.log("req.user", req.user);
+  // console.log("res.locals.user", res.locals.user);
   next();
 });
 

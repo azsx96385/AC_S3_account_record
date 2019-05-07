@@ -3,6 +3,6 @@
 //[create page]-------------------------------------
 
 $(".datepicker").pickadate({
-  format: " yyyy/mm/dd",
-  formatSubmit: "yyyy/mm/dd"
+  format: " yyyy/mm/dd"
+  // formatSubmit: "yyyy/mm/dd"
 });
