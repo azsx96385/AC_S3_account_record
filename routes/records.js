@@ -52,7 +52,7 @@ router.get("/edit/:id", (req, res) => {
     res.render("edit", { data, home, traffic, fun, food, other });
   });
 });
-router.post("/edit/:id", (req, res) => {
+router.put("/edit/:id", (req, res) => {
   recordModel
     .findOne({ _id: req.params.id, userId: req.user._id })
     .then(data => {

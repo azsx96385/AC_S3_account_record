@@ -1,5 +1,5 @@
 {{#if data}}
-<form action="/records/edit/{{data._id}}" method="POST" class="mt-5">
+<form action="/records/edit/{{data._id}}?_method=PUT" method="POST" class="mt-5">
     {{else}}
     <form action="/records/create" method="POST" class="mt-5">
         {{/if}}
