@@ -59,3 +59,9 @@ a {
   padding: 8px 50px;
   background-color: orange;
 }
+
+/* 特殊使用 */
+
+.hidden {
+  display: none;
+}
