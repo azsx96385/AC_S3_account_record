@@ -67,7 +67,11 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.isAuthenticated = req.isAuthenticated();
-  // console.log("res.locals.user", res.locals.user);
+  res.locals.passportErrorMessage = req.flash("error");
+  res.locals.recordErrorMessage = req.flash("recordErrorMessage");
+  res.locals.errorMessage = req.flash("errorMessage");
+  res.locals.successMessage = req.flash("successMessage");
+  // console.log("res.locals.user", req.flash("error"));
   next();
 });
 
@@ -76,3 +80,4 @@ app.use((req, res, next) => {
 app.use(express.static("public"));
 app.use("/users", require("./routes/user"));
 app.use("/records", require("./routes/records"));
+app.use("/auth", require("./routes/auth"));

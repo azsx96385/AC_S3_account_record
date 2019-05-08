@@ -69,7 +69,7 @@ module.exports = passport => {
                 let name = profile._json.name;
                 let email = profile._json.email;
                 let password = hash;
-                let userdata = new userModel({ name, email, hash });
+                let userdata = new userModel({ name, email, password });
 
                 userdata
                   .save()

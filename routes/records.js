@@ -27,11 +27,19 @@ router.get("/create", authenticated, (req, res) => {
 });
 router.post("/create", authenticated, (req, res) => {
   const { userId, name, date, category, amount } = req.body;
-  let recorddata = new recordModel({ userId, name, date, category, amount });
-  recorddata.save().catch(err => {
-    console.log(err);
-  });
-  res.redirect("/records");
+  if (!name || !date || !category || !amount) {
+    console.log("系統訊息 | 你有資料漏填");
+    res.render("create", {
+      data: req.body,
+      recordErrorMessage: "系統訊息 | 你有資料漏填"
+    });
+  } else {
+    let recorddata = new recordModel({ userId, name, date, category, amount });
+    recorddata.save().catch(err => {
+      console.log(err);
+    });
+    res.redirect("/records");
+  }
 });
 
 //3.修改
@@ -54,17 +62,25 @@ router.get("/edit/:id", authenticated, (req, res) => {
   });
 });
 router.put("/edit/:id", authenticated, (req, res) => {
-  recordModel
-    .findOne({ _id: req.params.id, userId: req.user._id })
-    .then(data => {
-      let { _id, userId, name, category, date, amount } = req.body;
-      data.name = name;
-      data.category = category;
-      data.date = date;
-      data.amount = amount;
-      data.save().catch(err => console.log(err));
-      res.redirect("/records");
+  const { userId, name, date, category, amount } = req.body;
+  if (!name || !date || !category || !amount) {
+    console.log("系統訊息 | 你有資料漏填");
+    res.render("create", {
+      data: req.body,
+      recordErrorMessage: "系統訊息 | 你有資料漏填"
     });
+  } else {
+    recordModel
+      .findOne({ _id: req.params.id, userId: req.user._id })
+      .then(data => {
+        data.name = name;
+        data.category = category;
+        data.date = date;
+        data.amount = amount;
+        data.save().catch(err => console.log(err));
+        res.redirect("/records");
+      });
+  }
 });
 
 //4.刪除

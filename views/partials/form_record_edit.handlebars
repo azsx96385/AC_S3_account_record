@@ -1,4 +1,4 @@
-<form action="" class="mt-5">
+<form action="/records/edit/{{data._id}}?_method=PUT" method="POST" class="mt-5">
     <div class="form_title row mb-3">
         <p class="col-sm-4 remark font-weight-bold    ">
             *必填欄位
@@ -6,6 +6,7 @@
         <p class="col-sm-5 text-center title font-weight-bold">
             請輸入你的支出
         </p>
+        {{> message}}
     </div>
 
     <div class="form-group row">
@@ -13,8 +14,8 @@
         </label>
         <div class="col-sm-5">
             <div class="input-group">
-                <input type="hidden" value="{{user._id}}">
-                <input type="text" id="name" class="form-control" name="name" />
+                <input type="hidden" name="userId" value="{{user._id}}">
+                <input type="text" id="name" class="form-control" name="name" value="{{data.name}}" />
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
         </label>
         <div class="col-sm-5">
             <div class="input-group">
-                <input type="text" name="date" class=" datepicker form-control">
+                <input type="text" name="date" class=" datepicker form-control" value="{{data.date}}">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon3"><i class="fas fa-calendar-week"></i></span>
                 </div>
@@ -37,12 +38,13 @@
         <div class="col-sm-5">
             <div class="input-group">
                 <select class="form-control" name="category" id="category">
-                    <option selected>Select </option>
-                    <option value="fa-home">家居物業</option>
-                    <option value="fa-shuttle-van">交通出行</option>
-                    <option value="fa-grin-beam">休閒娛樂</option>
-                    <option value="fa-utensils">餐飲食品</option>
-                    <option value="fa-pen">其他</option>
+                    <option>Select </option>
+                    <option value="fa-home" {{#if home }}selected{{/if}}>家居物業</option>
+                    <option value="fa-shuttle-van" {{#if traffic  }}selected{{/if}}>交通出行</option>
+                    <option value="fa-grin-beam" {{#if fun }}selected{{/if}}>休閒娛樂</option>
+                    <option value="fa-utensils" {{#if food }}selected{{/if}}>餐飲食品</option>
+                    <option value="fa-pen" {{#if other }}selected{{/if}}>其他</option>
+
                 </select>
             </div>
         </div>
@@ -53,7 +55,8 @@
         </label>
         <div class="col-sm-5">
             <div class="input-group">
-                <input class="form-control" type="text" id="amount" class="form-control" name="amount" />
+                <input class="form-control" type="text" id="amount" class="form-control" name="amount"
+                    value="{{data.amount}}" />
             </div>
         </div>
 
@@ -62,7 +65,7 @@
         <div class="col-sm-4"></div>
         <div id="create_button" class="col-sm-5">
             <button type="submit" class="btn btn-light btn-outline-dark">
-                新增支出
+                修改紀錄
             </button>
         </div>
     </div>
