@@ -9,6 +9,7 @@ module.exports = passport => {
   //local Strategy
   passport.use(
     //建立策略物件
+    //1.local
     new localStrategy({ usernameField: "email" }, (email, password, done) => {
       //驗證表單資料漏填
 
@@ -43,6 +44,48 @@ module.exports = passport => {
   );
 
   //facebook Strategy
+  passport.use(
+    new fbStrategy(
+      {
+        clientID: process.env.FACEBOOK_ID,
+        clientSecret: process.env.FACEBOOK_SECRET,
+        callbackURL: process.env.FACEBOOK_CALLBACK,
+        profileFields: ["email", "displayName"]
+      },
+      (accessToken, refreshToken, profile, done) => {
+        //驗證資料庫有無使用者資料-有-登入/沒有-新建登入
+        userModel.findOne({ email: profile._json.email }).then(user => {
+          console.log();
+          if (user) {
+            return done(null, user);
+          } else if (!user) {
+            //產生隨機密碼
+            let randomPassword = Math.random()
+              .toString(36)
+              .slice(-8);
+            //雜湊處理
+            bcrtpt.genSalt(10, (err, salt) => {
+              bcrtpt.hash(randomPassword, salt, (err, hash) => {
+                let name = profile._json.name;
+                let email = profile._json.email;
+                let password = hash;
+                let userdata = new userModel({ name, email, hash });
+
+                userdata
+                  .save()
+                  .then(user => {
+                    return done(null, user);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              });
+            });
+          }
+        });
+      }
+    )
+  );
 
   //2.log session
   passport.serializeUser((user, done) => {

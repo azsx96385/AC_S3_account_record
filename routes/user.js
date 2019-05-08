@@ -66,7 +66,7 @@ router.post("/login", (req, res, next) => {
 //3.登出
 router.get("/logout", (req, res) => {
   req.logOut();
-  res.redirect("/user/login");
+  res.redirect("/users/login");
 });
 //匯出路由
 module.exports = router;

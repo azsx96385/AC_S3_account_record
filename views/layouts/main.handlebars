@@ -22,7 +22,11 @@
         <!-- navbar -->
         <nav class="navbar navbar-light bg-light">
             <a href="/records" class="product_name navbar-brand font-weight-bold">家庭記帳本</a>
-            <a href="/user/logout" class="btn btn-primary  ">登出</a>
+            {{#if isAuthenticated }}
+            <a href="/users/logout" class="btn btn-primary  ">登出</a>
+            {{else}}
+            <a href="/users/login" class="btn btn-primary  ">登入</a>
+            {{/if}}
         </nav>
     </header>
     {{!-- 樣板匯入區 --}}

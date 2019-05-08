@@ -10,6 +10,10 @@ const flash = require("connect-flash");
 const path = require("path");
 
 //2.設定 package
+if (process.env.NODE_ENV !== "production") {
+  // 如果不是 production 模式
+  require("dotenv").config(); // 使用 dotenv 讀取 .env 檔案
+}
 
 //express
 const app = express();
@@ -62,6 +66,7 @@ app.use(flash());
 //自設中介曾
 app.use((req, res, next) => {
   res.locals.user = req.user;
+  res.locals.isAuthenticated = req.isAuthenticated();
   // console.log("res.locals.user", res.locals.user);
   next();
 });
