@@ -78,6 +78,7 @@ app.use((req, res, next) => {
 //3.route
 //record 路由
 app.use(express.static("public"));
+app.use("/", require("./routes/home"));
 app.use("/users", require("./routes/user"));
 app.use("/records", require("./routes/records"));
 app.use("/auth", require("./routes/auth"));

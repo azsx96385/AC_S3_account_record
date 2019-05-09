@@ -17,11 +17,11 @@ router.post("/register", (req, res) => {
   if (!name || !email || !password || !password_confirm) {
     console.log("系統訊息 | 每個欄位都要填寫");
     errorMessage.push({ message: "系統訊息 | 每個欄位都要填寫" });
-  }  
+  }
   if (password !== password_confirm) {
     console.log("系統訊息 | 密碼輸入不一致");
     errorMessage.push({ message: "系統訊息 | 密碼輸入不一致" });
-  } 
+  }
   if (errorMessage.length > 0) {
     req.flash("errorMessage", errorMessage);
     res.redirect("/users/register");
@@ -47,7 +47,7 @@ router.post("/register", (req, res) => {
               newUser
                 .save()
                 .then(user => {
-                  res.redirect("/records");
+                  res.redirect("/");
                 })
                 .catch(err => {
                   console.log(err);
@@ -66,7 +66,7 @@ router.get("/login", (req, res) => {
 });
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/records",
+    successRedirect: "/",
     failureRedirect: "/users/login",
     failureFlash: true
   })(req, res, next);

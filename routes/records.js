@@ -38,7 +38,7 @@ router.post("/create", authenticated, (req, res) => {
     recorddata.save().catch(err => {
       console.log(err);
     });
-    res.redirect("/records");
+    res.redirect("/");
   }
 });
 
@@ -78,7 +78,7 @@ router.put("/edit/:id", authenticated, (req, res) => {
         data.date = date;
         data.amount = amount;
         data.save().catch(err => console.log(err));
-        res.redirect("/records");
+        res.redirect("/");
       });
   }
 });
@@ -89,7 +89,7 @@ router.get("/delete/:id", authenticated, (req, res) => {
     .findOne({ _id: req.params.id, userId: req.user._id })
     .then(data => {
       data.remove();
-      res.redirect("/records");
+      res.redirect("/");
     });
 });
 
